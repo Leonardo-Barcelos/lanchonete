@@ -40,9 +40,8 @@ class _SignOrSignupState extends State<SignOrSignup> {
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
               ),
-              // FlatButton(onPressed: () {}, child: Text('LOGAR')),
-              // RaisedButton(onPressed: () {}, child: Text('REGISTRO')),
-              _myContainerSignOrSignUp,
+              _myContainerSign,
+              FlatButton(onPressed: () {}, child: Text('REGISTRAR-SE')),
               _customContainerLoginButton,
             ],
           ),
@@ -51,24 +50,30 @@ class _SignOrSignupState extends State<SignOrSignup> {
     );
   }
 
-  Container _myContainerSignOrSignUp = Container(
+  Container _myContainerSign = Container(
     width: double.infinity,
-    child: Row(
-      children: [
-        FlatButton(onPressed: () {}, child: Text('LOGAR')),
-        Spacer(),
-        RaisedButton(onPressed: () {}, child: Text('REGISTRAR-SE')),
-      ],
+    child: RaisedButton(
+      onPressed: () {},
+      child: Text('Logar-se'),
     ),
   );
   Container _customContainerLoginButton = Container(
     width: double.infinity,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text('ou'),
-        RaisedButton(onPressed: () {}, child: Text('facebook login')),
+        Container(
+          width: double.infinity,
+          child: RaisedButton(
+            color: Colors.blue,
+            onPressed: () {},
+            child: Text(
+              'facebook login',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ],
     ),
   );
