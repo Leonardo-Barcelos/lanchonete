@@ -3,6 +3,33 @@ import 'package:app_lanchonete/util/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatelessWidget {
+  final Container _myLogoImage = Container(
+    height: 250.0,
+    padding: EdgeInsets.all(5.0),
+    child: Image.asset(AppConstants.APP_LOGO),
+  );
+  final Container _myBackground = Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color.fromRGBO(215, 117, 255, 0.5),
+          Color.fromRGBO(215, 188, 117, 0.9),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
+    child: null,
+  );
+  final Text _myTitle = Text(
+    AppConstants.APP_NAME,
+    style: TextStyle(
+      fontSize: 30.0,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.bold,
+      color: Colors.deepOrangeAccent,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,32 +59,4 @@ class AuthScreen extends StatelessWidget {
       ),
     );
   }
-
-  Container _myBackground = Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          Color.fromRGBO(215, 117, 255, 0.5),
-          Color.fromRGBO(215, 188, 117, 0.9),
-        ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
-    child: null,
-  );
-  Container _myLogoImage = Container(
-    height: 250.0,
-    padding: EdgeInsets.all(5.0),
-    child: Image.asset(AppConstants.APP_LOGO),
-  );
-  Text _myTitle = Text(
-    AppConstants.APP_NAME,
-    style: TextStyle(
-      fontSize: 30.0,
-      fontStyle: FontStyle.normal,
-      fontWeight: FontWeight.bold,
-      color: Colors.deepOrangeAccent,
-    ),
-  );
 }
