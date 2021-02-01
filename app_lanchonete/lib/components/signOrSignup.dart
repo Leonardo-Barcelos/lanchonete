@@ -1,6 +1,6 @@
+import 'package:app_lanchonete/util/app_constants.dart';
+import 'package:app_lanchonete/util/app_routes.dart';
 import 'package:flutter/material.dart';
-
-enum AuthMode { Signup, Signin }
 
 class SignOrSignup extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _SignOrSignupState extends State<SignOrSignup> {
     width: double.infinity,
     child: RaisedButton(
       onPressed: () {},
-      child: Text('Logar-se'),
+      child: Text(AppConstants.APP_ENTER),
     ),
   );
   Container _customContainerLoginButton = Container(
@@ -20,14 +20,15 @@ class _SignOrSignupState extends State<SignOrSignup> {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('ou'),
+        const Text('ou'),
         Container(
           width: double.infinity,
           child: RaisedButton(
-            color: Colors.blue,
+            color: Colors.lightBlue,
+            textColor: Colors.white,
             onPressed: () {},
             child: Text(
-              'facebook login',
+              'Continuar com o facebook',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -52,21 +53,34 @@ class _SignOrSignupState extends State<SignOrSignup> {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'E-mail',
+                  labelText: AppConstants.APP_EMAIL,
                   prefixIcon: Icon(Icons.mail),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Senha',
+                  labelText: AppConstants.APP_PASSWORD,
                   prefixIcon: Icon(Icons.lock),
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
               ),
               _myContainerSign,
-              FlatButton(onPressed: () {}, child: Text('REGISTRAR-SE')),
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.AUTH_SIGNUP);
+                },
+                child: Text(
+                  AppConstants.APP_REGISTER,
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                    fontWeight: FontWeight.normal,
+                    decoration: TextDecoration.underline,
+                    fontSize: 13.0,
+                  ),
+                ),
+              ),
               _customContainerLoginButton,
             ],
           ),

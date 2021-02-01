@@ -1,5 +1,7 @@
 import 'package:app_lanchonete/screens/auth_screen.dart';
+import 'package:app_lanchonete/screens/signup_screen.dart';
 import 'package:app_lanchonete/util/app_constants.dart';
+import 'package:app_lanchonete/util/app_routes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AuthScreen(),
+      routes: {
+        AppRoutes.AUTH_HOME: (ctx) => AuthScreen(),
+        AppRoutes.AUTH_SIGNUP: (ctx) => SignupScreen(),
+      },
     );
   }
 }
