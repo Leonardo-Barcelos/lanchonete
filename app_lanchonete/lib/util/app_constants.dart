@@ -8,6 +8,7 @@ class AppConstants {
   static const APP_EMAIL = "E-mail";
   static const APP_PASSWORD = "Senha";
   static const APP_CONFIRM_PASSWORD = "Confimar senha";
+  static const APP_CONTINUE_WITH_FACEBOOK = "Continuar com o facebook";
   //IMAGENS
   static const APP_LOGO = "assets/images/logo-lanchonete.png";
   static const APP_FACEBOOK = "assets/images/fb-icon.png";

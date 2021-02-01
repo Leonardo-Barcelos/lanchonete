@@ -8,24 +8,25 @@ class SignOrSignup extends StatefulWidget {
 }
 
 class _SignOrSignupState extends State<SignOrSignup> {
-  Container _myContainerSign = Container(
-    width: double.infinity,
-    child: RaisedButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      color: Colors.lightGreen,
-      onPressed: () {},
-      child: Text(
-        AppConstants.APP_ENTER,
-        style: TextStyle(color: Colors.white),
-      ),
-    ),
-  );
-  Container _customContainerLoginButton = Container(
+  GlobalKey<FormState> _form = GlobalKey();
+  bool _loginValid = false;
+  bool _passValid = false;
+  bool _isLoading = false;
+  final Map<String, String> _formLogin = {
+    'email': '',
+    'password': '',
+  };
+  void _submitLogin() {
+    _form.currentState.validate();
+    setState(() {
+      _isLoading = true;
+    });
+  }
+
+  Container _customContainerFacebookLoginButton = Container(
     width: double.infinity,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('ou'),
         Container(
           width: double.infinity,
           child: RaisedButton(
@@ -43,7 +44,7 @@ class _SignOrSignupState extends State<SignOrSignup> {
                   width: 25.0,
                 ),
                 Text(
-                  'Continuar com o facebook',
+                  AppConstants.APP_CONTINUE_WITH_FACEBOOK,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -53,56 +54,118 @@ class _SignOrSignupState extends State<SignOrSignup> {
       ],
     ),
   );
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    bool _isvalid() {
+      if (_loginValid == true && _passValid == true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    var _loadingContainer = Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          Text('Carregando...'),
+        ],
+      ),
+    );
+
+    Container _myContainerButtonSign = Container(
+      width: double.infinity,
+      child: RaisedButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        color: Colors.lightGreen,
+        onPressed: _isvalid() ? _submitLogin : null,
+        child: Text(
+          AppConstants.APP_ENTER,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+    FlatButton _myButtonRegister = FlatButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      onPressed: () {
+        Navigator.of(context).pushNamed(AppRoutes.AUTH_SIGNUP);
+      },
+      child: Text(
+        AppConstants.APP_REGISTER,
+        style: TextStyle(
+          color: Colors.lightBlue,
+          fontWeight: FontWeight.normal,
+          decoration: TextDecoration.underline,
+          fontSize: 13.0,
+        ),
+      ),
+    );
+    TextFormField _myEmailFormField = TextFormField(
+      decoration: InputDecoration(
+        labelText: AppConstants.APP_EMAIL,
+        prefixIcon: Icon(Icons.mail),
+      ),
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        if (value != null && value.trim().isNotEmpty) {
+          setState(() {
+            _loginValid = true;
+          });
+        } else {
+          setState(() {
+            _loginValid = false;
+          });
+        }
+      },
+      onSaved: (value) => _formLogin['email'] = value,
+    );
+    TextFormField _myPasswordFormField = TextFormField(
+      decoration: InputDecoration(
+        labelText: AppConstants.APP_PASSWORD,
+        prefixIcon: Icon(Icons.lock),
+      ),
+      obscureText: true,
+      keyboardType: TextInputType.visiblePassword,
+      onSaved: (value) => _formLogin['password'] = value,
+      onChanged: (value) {
+        if (value != null && value.trim().isNotEmpty) {
+          setState(() {
+            _passValid = true;
+          });
+        } else {
+          setState(() {
+            _passValid = false;
+          });
+        }
+      },
+    );
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       elevation: 10.0,
       child: Container(
-        height: 310.0,
+        height: 340.0,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(15.0),
         child: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: AppConstants.APP_EMAIL,
-                  prefixIcon: Icon(Icons.mail),
+          key: _form,
+          child: _isLoading
+              ? _loadingContainer
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _myEmailFormField,
+                    _myPasswordFormField,
+                    _myContainerButtonSign,
+                    _myButtonRegister,
+                    _customContainerFacebookLoginButton,
+                  ],
                 ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: AppConstants.APP_PASSWORD,
-                  prefixIcon: Icon(Icons.lock),
-                ),
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-              ),
-              _myContainerSign,
-              FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.AUTH_SIGNUP);
-                },
-                child: Text(
-                  AppConstants.APP_REGISTER,
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.underline,
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
-              _customContainerLoginButton,
-            ],
-          ),
         ),
       ),
     );
