@@ -1,4 +1,5 @@
 import 'package:app_lanchonete/util/app_constants.dart';
+import 'package:app_lanchonete/util/app_validators.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -18,8 +19,19 @@ class _SignupScreenState extends State<SignupScreen> {
     'cellphone': '',
     'cep': '',
   };
+
+  void _submit() {
+    _formRegister.currentState.validate();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Container _signupButon = new Container(
+      child: RaisedButton(
+        onPressed: () => _submit(),
+        child: Text('enviar'),
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
@@ -34,6 +46,8 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    validator: (value) =>
+                        AppValidators.validadeMinimumLength(4, value),
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person_outline),
@@ -50,37 +64,42 @@ class _SignupScreenState extends State<SignupScreen> {
                     onSaved: (value) => _formData['email'] = value,
                   ),
                   TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_visiblePassword,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_outline),
-                        labelText: AppConstants.APP_PASSWORD,
-                        suffixIcon: !_blankField
-                            ? IconButton(
-                                icon: !_visiblePassword
-                                    ? Icon(Icons.visibility)
-                                    : Icon(Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _visiblePassword = !_visiblePassword;
-                                  });
-                                },
-                              )
-                            : null,
-                      ),
-                      onSaved: (value) => _formData['password'] = value,
-                      onChanged: (value) {
-                        if (value.trim().length > 0) {
-                          setState(() {
-                            _blankField = false;
-                          });
-                        } else {
-                          setState(() {
-                            _blankField = true;
-                          });
-                        }
-                      }),
+                    validator: (value) => AppValidators.compareStrings(
+                        value, _formData['confirmPass'].toString()),
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: !_visiblePassword,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock_outline),
+                      labelText: AppConstants.APP_PASSWORD,
+                      suffixIcon: !_blankField
+                          ? IconButton(
+                              icon: !_visiblePassword
+                                  ? Icon(Icons.visibility)
+                                  : Icon(Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _visiblePassword = !_visiblePassword;
+                                });
+                              },
+                            )
+                          : null,
+                    ),
+                    onSaved: (value) => _formData['password'] = value,
+                    onChanged: (value) {
+                      if (value.trim().length > 0) {
+                        setState(() {
+                          _blankField = false;
+                        });
+                      } else {
+                        setState(() {
+                          _blankField = true;
+                        });
+                      }
+                    },
+                  ),
                   TextFormField(
+                    validator: (value) => AppValidators.compareStrings(
+                        value, _formData['password'].toString()),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: !_visiblePassword,
                     decoration: InputDecoration(
@@ -89,6 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     onSaved: (value) => _formData['confirmPass'] = value,
                   ),
+                  _signupButon,
                 ],
               ),
             ),
