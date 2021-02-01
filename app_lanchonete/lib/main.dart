@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
       title: AppConstants.APP_NAME,
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
+        primaryTextTheme: TextTheme(
+          headline6: TextStyle(color: Colors.white),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {

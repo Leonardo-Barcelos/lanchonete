@@ -27,15 +27,25 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     Container _signupButon = new Container(
+      width: double.infinity,
       child: RaisedButton(
-        onPressed: () => _submit(),
-        child: Text('enviar'),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        color: Colors.lightGreen,
+        onPressed: !_blankField ? () => _submit() : null,
+        child: Text(
+          'enviar',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
+        title: Text('Tela de cadastro'),
+        centerTitle: true,
         automaticallyImplyLeading: true,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
         child: SingleChildScrollView(
@@ -62,6 +72,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       labelText: AppConstants.APP_EMAIL,
                     ),
                     onSaved: (value) => _formData['email'] = value,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.phone_android),
+                      labelText: 'Telefone(Celular)',
+                    ),
+                    //onSaved: (value) => _formData['email'] = value,
                   ),
                   TextFormField(
                     validator: (value) => AppValidators.compareStrings(
@@ -108,6 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     onSaved: (value) => _formData['confirmPass'] = value,
                   ),
+                  Divider(),
                   _signupButon,
                 ],
               ),
