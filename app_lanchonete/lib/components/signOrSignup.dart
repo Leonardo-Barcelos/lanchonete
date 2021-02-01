@@ -11,8 +11,13 @@ class _SignOrSignupState extends State<SignOrSignup> {
   Container _myContainerSign = Container(
     width: double.infinity,
     child: RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      color: Colors.lightGreen,
       onPressed: () {},
-      child: Text(AppConstants.APP_ENTER),
+      child: Text(
+        AppConstants.APP_ENTER,
+        style: TextStyle(color: Colors.white),
+      ),
     ),
   );
   Container _customContainerLoginButton = Container(
@@ -24,12 +29,24 @@ class _SignOrSignupState extends State<SignOrSignup> {
         Container(
           width: double.infinity,
           child: RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
             color: Colors.lightBlue,
             textColor: Colors.white,
             onPressed: () {},
-            child: Text(
-              'Continuar com o facebook',
-              style: TextStyle(color: Colors.white),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  AppConstants.APP_FACEBOOK,
+                  height: 25.0,
+                  width: 25.0,
+                ),
+                Text(
+                  'Continuar com o facebook',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             ),
           ),
         ),
@@ -68,6 +85,8 @@ class _SignOrSignupState extends State<SignOrSignup> {
               ),
               _myContainerSign,
               FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
                 onPressed: () {
                   Navigator.of(context).pushNamed(AppRoutes.AUTH_SIGNUP);
                 },
