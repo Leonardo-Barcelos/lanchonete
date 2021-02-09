@@ -33,10 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         color: Colors.lightGreen,
         onPressed: !_blankField ? () => _submit() : null,
-        child: Text(
-          'enviar',
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Text('enviar', style: TextStyle(color: Colors.white)),
       ),
     );
     return Scaffold(
@@ -74,16 +71,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     onSaved: (value) => _formData['email'] = value,
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.phone_android),
-                      labelText: 'Telefone(Celular)',
-                    ),
-                    //onSaved: (value) => _formData['email'] = value,
-                  ),
-                  TextFormField(
-                    validator: (value) => AppValidators.compareStrings(
-                        value, _formData['confirmPass'].toString()),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: !_visiblePassword,
                     decoration: InputDecoration(
@@ -114,17 +101,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         });
                       }
                     },
-                  ),
-                  TextFormField(
-                    validator: (value) => AppValidators.compareStrings(
-                        value, _formData['password'].toString()),
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: !_visiblePassword,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock_outline),
-                      labelText: AppConstants.APP_CONFIRM_PASSWORD,
-                    ),
-                    onSaved: (value) => _formData['confirmPass'] = value,
                   ),
                   Divider(),
                   _signupButon,

@@ -12,10 +12,8 @@ class _SignOrSignupState extends State<SignOrSignup> {
   bool _loginValid = false;
   bool _passValid = false;
   bool _isLoading = false;
-  final Map<String, String> _formLogin = {
-    'email': '',
-    'password': '',
-  };
+  final Map<String, String> _formLogin = {'email': '', 'password': ''};
+
   void _submitLogin() {
     _form.currentState.validate();
     setState(() {
