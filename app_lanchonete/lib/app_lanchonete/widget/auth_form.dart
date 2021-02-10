@@ -39,59 +39,14 @@ class _AuthFormState extends State<AuthForm> {
               children: [
                 Visibility(
                   visible: _authData.isSignup,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        key: ValueKey('name'),
-                        decoration: InputDecoration(labelText: 'Nome'),
-                        keyboardType: TextInputType.name,
-                        onChanged: (value) => _authData.name = value,
-                        validator: (value) {
-                          if (value == null || value.trim().length < 4) {
-                            return 'Nome deve ter no minimo 4 caracteres';
-                          }
-                          //*RETORNA NULO SINAL QUE ESTÁ TUDO OK
-                          return null;
-                        },
-                        enableInteractiveSelection: false,
-                        enableSuggestions: false,
-                        toolbarOptions: ToolbarOptions(
-                          copy: false,
-                          cut: false,
-                          paste: false,
-                          selectAll: false,
-                        ),
-                      ),
-                      TextFormField(
-                        key: ValueKey('email'),
-                        decoration: InputDecoration(labelText: 'E-mail'),
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => _authData.email = value,
-                        validator: (value) {
-                          if (value == null || !value.contains('@')) {
-                            return 'e-mail inválido';
-                          }
-                          //*RETORNA NULO SINAL QUE ESTÁ TUDO OK
-                          return null;
-                        },
-                        enableInteractiveSelection: false,
-                        toolbarOptions: ToolbarOptions(
-                          copy: false,
-                          cut: false,
-                          paste: false,
-                          selectAll: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                  replacement: TextFormField(
-                    key: ValueKey('email'),
-                    decoration: InputDecoration(labelText: 'E-mail'),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) => _authData.email = value,
+                  child: TextFormField(
+                    key: ValueKey('name'),
+                    decoration: InputDecoration(labelText: 'Nome'),
+                    keyboardType: TextInputType.name,
+                    onChanged: (value) => _authData.name = value,
                     validator: (value) {
-                      if (value == null || !value.contains('@')) {
-                        return 'e-mail inválido';
+                      if (value == null || value.trim().length < 4) {
+                        return 'Nome deve ter no minimo 4 caracteres';
                       }
                       //*RETORNA NULO SINAL QUE ESTÁ TUDO OK
                       return null;
@@ -104,6 +59,27 @@ class _AuthFormState extends State<AuthForm> {
                       paste: false,
                       selectAll: false,
                     ),
+                  ),
+                ),
+                TextFormField(
+                  key: ValueKey('email'),
+                  decoration: InputDecoration(labelText: 'E-mail'),
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) => _authData.email = value,
+                  validator: (value) {
+                    if (value == null || !value.contains('@')) {
+                      return 'e-mail inválido';
+                    }
+                    //*RETORNA NULO SINAL QUE ESTÁ TUDO OK
+                    return null;
+                  },
+                  enableInteractiveSelection: false,
+                  enableSuggestions: false,
+                  toolbarOptions: ToolbarOptions(
+                    copy: false,
+                    cut: false,
+                    paste: false,
+                    selectAll: false,
                   ),
                 ),
                 TextFormField(
@@ -144,6 +120,20 @@ class _AuthFormState extends State<AuthForm> {
                       _formKey.currentState.reset();
                     });
                   },
+                ),
+                //TODO: fazer ainda o botao do facebook
+                Visibility(
+                  visible: _authData.isLogin,
+                  child: Container(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text('Entrar com facebook'),
+                      onPressed: _submit,
+                    ),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ),
               ],
             ),
