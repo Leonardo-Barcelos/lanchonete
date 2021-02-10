@@ -1,4 +1,5 @@
 import 'package:app_lanchonete/app_lanchonete/model/auth_data.dart';
+import 'package:app_lanchonete/app_lanchonete/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -128,7 +129,11 @@ class _AuthFormState extends State<AuthForm> {
                     width: double.infinity,
                     child: RaisedButton(
                       child: Text('Entrar com facebook'),
-                      onPressed: _submit,
+                      onPressed: () {
+                        //!PARA FINS DE TESTE
+                        Navigator.of(context)
+                            .popAndPushNamed(AppRoutes.HOME_PAGE);
+                      },
                     ),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_lanchonete/app_lanchonete/pages/auth_page.dart';
 import 'package:app_lanchonete/app_lanchonete/utils/app_routes.dart';
+import 'package:app_lanchonete/app_lanchonete/pages/home_page.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -13,6 +14,7 @@ class AppWidget extends StatelessWidget {
       ),
       routes: {
         AppRoutes.AUTH_PAGE: (ctx) => AuthPage(),
+        AppRoutes.HOME_PAGE: (ctx) => HomePage(),
       },
     );
   }
